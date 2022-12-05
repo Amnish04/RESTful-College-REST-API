@@ -17,6 +17,7 @@ app.get("/", (req, res) => {
 /* Database Endpoints */
 
 app.get('/students', (req, res) => {
+    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:4200');
     data.getAllStudents()
     .then((studentData) => {
         res.json({
