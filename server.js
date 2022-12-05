@@ -49,6 +49,7 @@ app.post("/students", (req, res) => {
 });
 
 app.put('/students', (req, res) => {
+    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:4200');
     data.updateStudent(req.body)
     .then(() => {
         res.json({
