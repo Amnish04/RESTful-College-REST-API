@@ -2,11 +2,15 @@ const { urlencoded } = require('express');
 const express = require('express');
 const app = express();
 const data = require('./modules/collegeData');
+const cors = require('cors');
 
 // Implicit Middlewares
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 app.use('/favicon.ico', express.static('./favicon.ico'));
+app.use(cors({
+    origin: 'http://localhost:4200'
+}));
 
 const HTTP_PORT = process.env.PORT || 8080;
 
@@ -17,7 +21,6 @@ app.get("/", (req, res) => {
 /* Database Endpoints */
 
 app.get('/students', (req, res) => {
-    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:4200');
     data.getAllStudents()
     .then((studentData) => {
         res.json({
@@ -50,7 +53,6 @@ app.post("/students", (req, res) => {
 });
 
 app.put('/students', (req, res) => {
-    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:4200');
     data.updateStudent(req.body)
     .then(() => {
         res.json({
