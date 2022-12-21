@@ -20,6 +20,7 @@ app.get("/", (req, res) => {
 
 /* Database Endpoints */
 
+/* Student Endpoints */
 app.get('/students', (req, res) => {
     data.getAllStudents()
     .then((studentData) => {
@@ -78,6 +79,69 @@ app.delete('/students/:id', (req, res) => {
         res.json({
             status: "Fail",
             message: "Failed to delete student => " + error
+        });
+    });
+});
+
+/* Courses Endpoints */
+app.get('/courses', (req, res) => {
+    data.getCourses()
+    .then((coursesData) => {
+        res.json({
+            status: "Success",
+            data: coursesData
+        });
+    })
+    .catch((error) => {
+        res.json({
+            status: "Fail",
+            message: error
+        });
+    })
+});
+
+app.post("/courses", (req, res) => {
+    // Security Implementation Later
+    data.addCourse(req.body)
+    .then(() => {
+        res.json({
+            status: "Success",
+            message: `Course ${req.body.courseId} successfully added!`
+        });
+    }).catch((error) => {
+        res.json({
+            status: "Fail",
+            message: "Failed to add course => " + error
+        });
+    });
+});
+
+app.put('/courses', (req, res) => {
+    data.updateCourse(req.body)
+    .then(() => {
+        res.json({
+            status: "Success",
+            message: `Course ${req.body.courseId} successfully updated!`
+        });
+    }).catch((error) => {
+        res.json({
+            status: "Fail",
+            message: "Failed to update course => " + error
+        });
+    });
+});
+
+app.delete('/courses/:id', (req, res) => {
+    data.deleteCourseById(req.params.id)
+    .then(() => {
+        res.json({
+            status: "Success",
+            message: `Course ${req.params.id} successfully deleted!`
+        });
+    }).catch((error) => {
+        res.json({
+            status: "Fail",
+            message: "Failed to delete course => " + error
         });
     });
 });
