@@ -4,12 +4,23 @@ const app = express();
 const data = require('./modules/collegeData');
 const cors = require('cors');
 
+const allowedDomains = [
+    'http://localhost:4200',
+];
+let corsDomain;
+
 // Implicit Middlewares
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 app.use('/favicon.ico', express.static('./favicon.ico'));
+
+// Setup cors header
+app.use((req, res, next) => {
+    corsDomain = allowedDomains.includes(req.headers.host) ? req.headers.host : null;
+    next();
+});
 app.use(cors({
-    origin: 'http://localhost:4200'
+    origin: corsDomain
 }));
 
 const HTTP_PORT = process.env.PORT || 8080;
