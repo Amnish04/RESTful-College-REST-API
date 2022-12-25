@@ -3,6 +3,7 @@ const express = require('express');
 const app = express();
 const data = require('./modules/collegeData');
 const cors = require('cors');
+const utils = require('./modules/utils');
 
 const allowedDomains = [
     'http://localhost:4200',
@@ -16,7 +17,8 @@ app.use('/favicon.ico', express.static('./favicon.ico'));
 
 // Setup cors header
 app.use((req, res, next) => {
-    corsDomain = allowedDomains.includes(req.headers.host) ? req.headers.host : null;
+    let domain = utils.getFullUrl(req);
+    corsDomain = allowedDomains.includes(domain) ? domain : null;
     next();
 });
 app.use(cors({
