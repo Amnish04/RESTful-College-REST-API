@@ -19,7 +19,9 @@ app.use('/favicon.ico', express.static('./favicon.ico'));
 app.use((req, res, next) => {
     let domain = utils.getFullUrl(req);
     corsDomain = allowedDomains.includes(domain) ? domain : null;
-    console.log(corsDomain)
+    console.log(
+        "CorsDomain: " + corsDomain + "\n" + "Domain: " + domain
+    );
     next();
 });
 app.use(cors({
