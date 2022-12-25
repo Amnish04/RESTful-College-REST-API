@@ -100,6 +100,22 @@ app.get('/courses', (req, res) => {
     })
 });
 
+app.get('/courses/:id', (req, res) => {
+    data.getCourseById(req.params.id)
+    .then((courseData) => {
+        res.json({
+            status: "Success",
+            data: courseData
+        });
+    })
+    .catch((error) => {
+        res.json({
+            status: "Fail",
+            message: error
+        });
+    })
+});
+
 app.post("/courses", (req, res) => {
     // Security Implementation Later
     data.addCourse(req.body)
