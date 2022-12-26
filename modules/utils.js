@@ -2,7 +2,7 @@ class Utils {
     constructor() {}
 
     getFullUrl(req) {
-        return req.get('host');
+        return req.protocol + '://' + req.headers.host;
     }
 }
 
