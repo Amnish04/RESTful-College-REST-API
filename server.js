@@ -7,7 +7,6 @@ const utils = require('./modules/utils');
 
 const allowedDomains = [
     'http://localhost:4200',
-    'http://localhost:8080',
 ];
 let corsDomain;
 
