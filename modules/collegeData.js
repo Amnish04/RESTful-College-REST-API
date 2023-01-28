@@ -39,6 +39,19 @@ sequelize
 
 /* Creating Data Models */
 
+
+// User Model
+const User = sequelize.define("User", {
+    userId: {
+        type: Sequelize.INTEGER,
+        primaryKey: true,
+        autoIncrement: true
+    },
+    name: Sequelize.STRING,
+    email: Sequelize.STRING,
+    password: Sequelize.STRING,
+});
+
 // Student Model
 const Student = sequelize.define("Student", {
     studentNum: {
@@ -72,13 +85,21 @@ Course.hasMany(Student, {
     foreignKey: "course"
 });
 
+User.hasMany(Student, {
+    foreignKey: "userId"
+});
+
+User.hasMany(Course, {
+    foreignKey: "userId"
+});
+
 // Courses and Students actually have a many-to-many relationship, so we should have had a bridging table called StudCourse as well, 
 // but we wont' to do that in this assignment for the sake of simplicity
 
 
 module.exports.initialize = function () {
     return new Promise( (resolve, reject) => {
-        sequelize.sync().then(function() {
+        sequelize.sync({force: false, alter: true}).then(function() {
             resolve();
         }).catch(function() {
             reject("unable to sync the database");
@@ -241,7 +262,6 @@ module.exports.updateCourse = function(courseData) {
                 courseData[property] = null;
             }
         }
-        console.log(courseData);
         // CRUD Operation
         Course.update(courseData, {
             where: {
@@ -267,6 +287,60 @@ module.exports.deleteCourseById = function(id) {
             resolve(data);
         }).catch((msg) => {
             reject(msg);
+        });
+    });
+};
+
+// Users
+module.exports.addUser = function (userData) {
+    return new Promise(function (resolve, reject) {
+        // Set empty values to null
+        for (let property in userData) {
+            if (userData[property] === undefined || userData[property].length === 0) {
+                userData[property] = null;
+            }
+        }
+        User.create(userData)
+        .then((data) => {
+            resolve("Successfully created" + data ? (" " + data) : "");
+        })
+        .catch((msg) => {
+            reject("Unable to create student" + msg ? (" " + msg) : "");
+        });
+    });
+};
+
+module.exports.getUsers = function(){
+    return new Promise((resolve, reject) => {
+        User.findAll()
+        .then((data) => {
+            resolve(data);
+        })
+        .catch((msg) => {
+            reject("No results returned!" + msg ? (" " + msg) : "");
+        });
+    });
+};
+
+module.exports.updateUser = function(userData) {
+    return new Promise((resolve, reject) => {
+        // Set empty values to null
+        for (let property in userData) {
+            if (!userData[property] || userData[property].length === 0) {
+                userData[property] = null;
+            }
+        }
+        // CRUD Operation
+        User.update(userData, {
+            where: {
+                userId: userData.userId
+            }
+        })
+        .then((data) => {
+            resolve("Successfully updated user" + data ? (" " + data) : "");
+        })
+        .catch((msg) => {
+            reject("Unable to update user" + msg ? (" " + msg) : "");
         });
     });
 };

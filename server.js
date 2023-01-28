@@ -179,6 +179,53 @@ app.delete('/courses/:id', (req, res) => {
     });
 });
 
+/* User Endpoints */
+app.get('/users', (req, res) => {
+    data.getUsers()
+    .then((usersData) => {
+        res.json({
+            status: "Success",
+            data: usersData
+        });
+    })
+    .catch((error) => {
+        res.json({
+            status: "Fail",
+            message: error
+        });
+    })
+});
+
+app.put('/users', (req, res) => {
+    data.addUser(req.body)
+    .then(() => {
+        res.json({
+            status: "Success",
+            message: `User ${req.body.courseId} successfully created!`
+        });
+    }).catch((error) => {
+        res.json({
+            status: "Fail",
+            message: "Failed to create user => " + error
+        });
+    });
+});
+
+app.post('/users', (req, res) => {
+    data.updateUser(req.body)
+    .then(() => {
+        res.json({
+            status: "Success",
+            message: `User ${req.body.userId} successfully updated!`
+        });
+    }).catch((error) => {
+        res.json({
+            status: "Fail",
+            message: "Failed to update user => " + error
+        });
+    });
+});
+
 data.initialize()
 .then(() => {
     app.listen(HTTP_PORT, () => {
