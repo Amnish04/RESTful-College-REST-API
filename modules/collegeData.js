@@ -100,7 +100,10 @@ User.hasMany(Course, {
 
 module.exports.initialize = function () {
     return new Promise( (resolve, reject) => {
-        sequelize.sync({force: false, alter: true}).then(function() {
+        sequelize.sync({
+            force: false, 
+            alter: true
+        }).then(function() {
             resolve();
         }).catch(function() {
             reject("unable to sync the database");
