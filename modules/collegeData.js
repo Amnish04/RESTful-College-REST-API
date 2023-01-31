@@ -345,3 +345,17 @@ module.exports.updateUser = function(userData) {
         });
     });
 };
+
+module.exports.deleteUserById = function(id) {
+    return new Promise((resolve, reject) => {
+        User.destroy({
+            where: {
+                userId: id
+            }
+        }).then((data) => {
+            resolve(data);
+        }).catch((msg) => {
+            reject(msg);
+        });
+    });
+};

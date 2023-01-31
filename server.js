@@ -226,6 +226,21 @@ app.post('/users', (req, res) => {
     });
 });
 
+app.delete('/users/:id', (req, res) => {
+    data.deleteUserById(req.params.id)
+    .then(() => {
+        res.json({
+            status: "Success",
+            message: `User ${req.params.id} successfully deleted!`
+        });
+    }).catch((error) => {
+        res.json({
+            status: "Fail",
+            message: "Failed to delete user => " + error
+        });
+    });
+});
+
 data.initialize()
 .then(() => {
     app.listen(HTTP_PORT, () => {
