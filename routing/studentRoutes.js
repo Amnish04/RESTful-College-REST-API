@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const data = require('../modules/collegeData');
+const { checkForProfanity } = require('../middlewares/text-filters');
 
 /* Student Endpoints */
 router.get('/', (req, res) => {
@@ -19,7 +20,7 @@ router.get('/', (req, res) => {
     })
 });
 
-router.post("/", (req, res) => {
+router.post("/", checkForProfanity, (req, res) => {
     // Security Implementation Later
     data.addStudent(req.body)
     .then(() => {
@@ -35,7 +36,7 @@ router.post("/", (req, res) => {
     });
 });
 
-router.put('/', (req, res) => {
+router.put('/', checkForProfanity, (req, res) => {
     data.updateStudent(req.body)
     .then(() => {
         res.json({
