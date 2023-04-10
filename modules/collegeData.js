@@ -157,7 +157,10 @@ module.exports.getStudentsByCourse = function (course) {
             }
         })
         .then((data) => {
-            resolve(data.sort((a, b) => (new Date(b.updatedAt)).getTime() - (new Date(a.updatedAt)).getTime()));
+            resolve(data.sort((a, b) => {
+                console.log((new Date(b.updatedAt)).getTime() - (new Date(a.updatedAt)).getTime());
+                return (new Date(b.updatedAt)).getTime() - (new Date(a.updatedAt)).getTime();  
+            }));
         })
         .catch((msg) => {
             reject("No results returned!" + msg ? (" " + msg) : "");
