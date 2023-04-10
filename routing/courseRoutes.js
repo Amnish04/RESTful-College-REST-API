@@ -7,12 +7,14 @@ router.get('/', (req, res) => {
     data.getCourses()
     .then((coursesData) => {
         res.json({
+            statusCode: res.statusCode,
             status: "Success",
             data: coursesData
         });
     })
     .catch((error) => {
         res.json({
+            statusCode: res.statusCode,
             status: "Fail",
             message: error
         });
@@ -23,12 +25,14 @@ router.get('/:id', (req, res) => {
     data.getCourseById(req.params.id)
     .then((courseData) => {
         res.json({
+            statusCode: res.statusCode,
             status: "Success",
             data: courseData
         });
     })
     .catch((error) => {
         res.json({
+            statusCode: res.statusCode,
             status: "Fail",
             message: error
         });
@@ -40,11 +44,13 @@ router.post("/", checkForProfanity, (req, res) => {
     data.addCourse(req.body)
     .then(() => {
         res.json({
+            statusCode: res.statusCode,
             status: "Success",
-            message: `Course ${req.body.courseId} successfully added!`
+            message: `Course successfully added!`
         });
     }).catch((error) => {
         res.json({
+            statusCode: res.statusCode,
             status: "Fail",
             message: "Failed to add course => " + error
         });
@@ -54,12 +60,14 @@ router.post("/", checkForProfanity, (req, res) => {
 router.put('/', checkForProfanity, (req, res) => {
     data.updateCourse(req.body)
     .then(() => {
-        res.json({
+        res.status(200).json({
+            statusCode: res.statusCode,
             status: "Success",
             message: `Course ${req.body.courseId} successfully updated!`
         });
     }).catch((error) => {
-        res.json({
+        res.status(500).json({
+            statusCode: res.statusCode,
             status: "Fail",
             message: "Failed to update course => " + error
         });
@@ -70,11 +78,13 @@ router.delete('/:id', (req, res) => {
     data.deleteCourseById(req.params.id)
     .then(() => {
         res.json({
+            statusCode: res.statusCode,
             status: "Success",
             message: `Course ${req.params.id} successfully deleted!`
         });
     }).catch((error) => {
         res.json({
+            statusCode: res.statusCode,
             status: "Fail",
             message: "Failed to delete course => " + error
         });
