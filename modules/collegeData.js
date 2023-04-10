@@ -158,7 +158,7 @@ module.exports.getStudentsByCourse = function (course) {
         })
         .then((data) => {
             resolve(data.sort((a, b) => {
-                console.log((new Date(b.updatedAt)).getTime());
+                console.log("Logging: " + (new Date(b.updatedAt)).getTime());
                 return (new Date(b.updatedAt)).getTime() - (new Date(a.updatedAt)).getTime();  
             }));
         })
