@@ -143,7 +143,7 @@ module.exports.getStudentByNum = function(num) {
                 studentNum: num
             }
         }).then((data) => {
-            resolve(data);
+            resolve(data.sort((a, b) => (new Date(b.updatedAt)).getTime() - (new Date(a.updatedAt)).getTime()));
         }).catch((msg) => {
             reject("No results returned!" + msg ? (" " + msg) : "");
         });
