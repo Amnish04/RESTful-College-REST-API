@@ -128,7 +128,7 @@ module.exports.getCourses = function(){
     return new Promise((resolve, reject) => {
         Course.findAll()
         .then((data) => {
-            resolve(data.sort((a, b) => (new Date(a.updatedAt)).getTime() - (new Date(b.updatedAt)).getTime()));
+            resolve(data.sort((a, b) => (new Date(b.updatedAt)).getTime() - (new Date(a.updatedAt)).getTime()));
         })
         .catch((msg) => {
             reject("No results returned!" + msg ? (" " + msg) : "");
@@ -157,7 +157,7 @@ module.exports.getStudentsByCourse = function (course) {
             }
         })
         .then((data) => {
-            resolve(data.sort((a, b) => (new Date(a.updatedAt)).getTime() - (new Date(b.updatedAt)).getTime()));
+            resolve(data.sort((a, b) => (new Date(b.updatedAt)).getTime() - (new Date(a.updatedAt)).getTime()));
         })
         .catch((msg) => {
             reject("No results returned!" + msg ? (" " + msg) : "");
