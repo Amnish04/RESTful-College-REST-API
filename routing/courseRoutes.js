@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const data = require('../modules/collegeData');
+const { checkForProfanity } = require('../middlewares/text-filters');
 
 router.get('/', (req, res) => {
     data.getCourses()
@@ -34,7 +35,7 @@ router.get('/:id', (req, res) => {
     })
 });
 
-router.post("/", (req, res) => {
+router.post("/", checkForProfanity, (req, res) => {
     // Security Implementation Later
     data.addCourse(req.body)
     .then(() => {
@@ -50,7 +51,7 @@ router.post("/", (req, res) => {
     });
 });
 
-router.put('/', (req, res) => {
+router.put('/', checkForProfanity, (req, res) => {
     data.updateCourse(req.body)
     .then(() => {
         res.json({
