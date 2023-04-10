@@ -116,7 +116,9 @@ module.exports.getAllStudents = function(){
     return new Promise((resolve, reject) => {
         Student.findAll()
         .then((data) => {
-            resolve(data);
+            resolve(data.sort((a, b) => {
+                return (new Date(b.updatedAt)).getTime() - (new Date(a.updatedAt)).getTime();  
+            }));
         })
         .catch((msg) => {
             reject("No results returned!" + msg ? (" " + msg) : "");
@@ -158,7 +160,6 @@ module.exports.getStudentsByCourse = function (course) {
         })
         .then((data) => {
             resolve(data.sort((a, b) => {
-                console.log("Logging: " + (new Date(b.updatedAt)).getTime());
                 return (new Date(b.updatedAt)).getTime() - (new Date(a.updatedAt)).getTime();  
             }));
         })
