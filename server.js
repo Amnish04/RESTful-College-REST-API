@@ -12,18 +12,7 @@ const utils = require('./modules/utils');
 // Implicit Middlewares
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
-// app.use('/favicon.ico', express.static('./favicon.ico'));
 
-// Setup cors header
-// app.use((req, res, next) => {
-//     let domain = utils.getFullUrl(req);
-//     corsDomain = allowedDomains.includes(domain) ? domain : null;
-//     console.log(
-//         "CorsDomain: " + corsDomain + ", " + "Domain: " + domain
-//     );
-//     console.log(req.subdomains)
-//     next();
-// });
 app.use(cors({
     origin: '*'
 }));
