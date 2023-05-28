@@ -1,4 +1,3 @@
-const { urlencoded } = require('express');
 const express = require('express');
 const app = express();
 const data = require('./modules/collegeData');
@@ -13,7 +12,7 @@ const utils = require('./modules/utils');
 // Implicit Middlewares
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
-app.use('/favicon.ico', express.static('./favicon.ico'));
+// app.use('/favicon.ico', express.static('./favicon.ico'));
 
 // Setup cors header
 // app.use((req, res, next) => {
@@ -31,6 +30,7 @@ app.use(cors({
 
 const HTTP_PORT = process.env.PORT || 8080;
 
+// Default endpoint
 app.get("/", (req, res) => {
     res.send("Your API is running fine");
 });
@@ -53,7 +53,7 @@ app.use('/users', userEndpoints);
 data.initialize()
 .then(() => {
     app.listen(HTTP_PORT, () => {
-        console.log("App listening on: " + HTTP_PORT);
+        console.log("App listening on port: " + HTTP_PORT);
     });
 })
 .catch((error) => {
