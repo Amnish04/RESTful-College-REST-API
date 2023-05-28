@@ -27,7 +27,7 @@ const sequelize = new Sequelize(credentials.database, credentials.user, credenti
     pool: {
         max: 20,
         min: 0,
-        acquire: 30000,
+        acquire: 60000,
         idle: 10000
     },
     port: credentials.port,
