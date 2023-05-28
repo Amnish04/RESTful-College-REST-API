@@ -25,7 +25,7 @@ const sequelize = new Sequelize(credentials.database, credentials.user, credenti
     host: credentials.host,
     dialect: 'postgres',
     pool: {
-        max: 20,
+        max: 20000,
         min: 0,
         acquire: 60000,
         idle: 10000
