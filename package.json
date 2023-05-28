@@ -12,6 +12,7 @@
   "dependencies": {
     "client-sessions": "^0.8.0",
     "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
     "express": "^4.17.3",
     "express-handlebars": "^6.0.3",
     "node-fetch": "^2.6.6",
