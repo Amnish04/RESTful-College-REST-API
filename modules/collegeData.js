@@ -101,6 +101,7 @@ User.hasMany(Course, {
 
 
 module.exports.initialize = function () {
+    console.log(credentials)
     return new Promise( (resolve, reject) => {
         sequelize.sync({
             force: false, 

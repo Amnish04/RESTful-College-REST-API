@@ -2,7 +2,6 @@ const express = require('express');
 const app = express();
 const data = require('./modules/collegeData');
 const cors = require('cors');
-const utils = require('./modules/utils');
 
 // const allowedDomains = [
 //     'http://localhost:4200',
