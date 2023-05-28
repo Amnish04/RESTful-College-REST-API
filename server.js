@@ -46,5 +46,5 @@ data.initialize()
     });
 })
 .catch((error) => {
-    res.send(error);
+    console.log(error);
 });
